@@ -1,4 +1,4 @@
-package work.iwacloud.springdatahelper.repository;
+package work.iwacloud.springdatahelper.objects;
 
 /*
  * Tiago Henrique Iwamoto
@@ -14,7 +14,7 @@ import java.util.Objects;
  * This is a model with a column name and a value to persist in database
  */
 @SuppressWarnings("all")
-public class Table {
+public class IwaTable {
 
     //region ATRIBUTES
     private String column;
@@ -24,7 +24,7 @@ public class Table {
 
     //region CONSTRUCTORS
 
-    public Table(String column, Object value) {
+    public IwaTable(String column, Object value) {
         this.column = column;
         this.value = value;
     }
@@ -32,12 +32,12 @@ public class Table {
     //endregion
 
     //region SUPPORT
-    public Table withColumn(String column){
+    public IwaTable withColumn(String column){
         this.column = column;
         return this;
     }
 
-    public Table withValue(Object value){
+    public IwaTable withValue(Object value){
         this.value = value;
         return this;
     }
@@ -61,9 +61,9 @@ public class Table {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Table table = (Table) o;
-        return Objects.equals(column, table.column) &&
-                Objects.equals(value, table.value);
+        IwaTable iwaTable = (IwaTable) o;
+        return Objects.equals(column, iwaTable.column) &&
+                Objects.equals(value, iwaTable.value);
     }
 
     @Override
