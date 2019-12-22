@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import work.iwacloud.springdatahelper.exception.IwaException;
 import work.iwacloud.springdatahelper.helper.TableHelper;
 import work.iwacloud.springdatahelper.objects.DataTransfer;
+import work.iwacloud.springdatahelper.objects.IwaMessages;
 import work.iwacloud.springdatahelper.objects.IwaTable;
 import work.iwacloud.springdatahelper.objects.StatusOperation;
 
@@ -50,27 +51,35 @@ public class IwaRepository {
      */
     public Object select(String select, Boolean asList){
 
-        if(select.startsWith("select") || select.startsWith("SELECT")){
-            return jdbcTemplate.query(select, new ResultSetExtractor<Object>() {
+        if(select.startsWith("select") || select.startsWith("SELECT")) {
+            try {
+                return jdbcTemplate.query(select, new ResultSetExtractor<Object>() {
 
-                @Override
-                public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                    try {
-                        return new TableHelper().serializeResultSet(resultSet);
-                    } catch (IwaException e) {
-                        if(asList){
-                            return new ArrayList<>();
-                        }else{
-                            return new JSONArray();
+                    @Override
+                    public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                        try {
+                            return new TableHelper().serializeResultSet(resultSet);
+                        } catch (IwaException e) {
+                            if (asList) {
+                                return new ArrayList<>();
+                            } else {
+                                return new JSONArray();
+                            }
                         }
                     }
-                }
 
-            });
+                });
+            }catch (Exception e){
+                if (asList) {
+                    return new ArrayList<>();
+                } else {
+                    return new JSONArray();
+                }
+            }
         }else{
-            if(asList){
+            if (asList) {
                 return new ArrayList<>();
-            }else{
+            } else {
                 return new JSONArray();
             }
         }
@@ -113,16 +122,16 @@ public class IwaRepository {
                 Integer queryResult = query.executeUpdate();
                 if(queryResult > 0){
                     em.getTransaction().commit();
-                    return new DataTransfer<>(StatusOperation.EXECUTED, "");
+                    return new DataTransfer<>(StatusOperation.EXECUTED, IwaMessages.EXECUTED.value());
                 }else{
                     Thread.sleep(TIME_TO_EXECUTE);
                     timesExecuted++;
                 }
             }
-            return new DataTransfer(StatusOperation.ABORTED, "");
+            return new DataTransfer(StatusOperation.ABORTED, IwaMessages.ABORTED.value());
 
         }catch (Exception e){
-            return new DataTransfer(StatusOperation.ERROR, "");
+            return new DataTransfer(StatusOperation.ERROR, IwaMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
                 em.clear();
@@ -169,16 +178,16 @@ public class IwaRepository {
                 Integer queryResult = query.executeUpdate();
                 if(queryResult > 0){
                     em.getTransaction().commit();
-                    return new DataTransfer<>(StatusOperation.EXECUTED, "");
+                    return new DataTransfer<>(StatusOperation.EXECUTED, IwaMessages.EXECUTED.value());
                 }else{
                     Thread.sleep(TIME_TO_EXECUTE);
                     timesExecuted++;
                 }
             }
 
-            return new DataTransfer(StatusOperation.ABORTED, "");
+            return new DataTransfer(StatusOperation.ABORTED, IwaMessages.ABORTED.value());
         }catch (Exception e){
-            return new DataTransfer(StatusOperation.ERROR, "");
+            return new DataTransfer(StatusOperation.ERROR, IwaMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
                 em.clear();
@@ -206,15 +215,15 @@ public class IwaRepository {
                 Integer queryResult = query.executeUpdate();
                 if (queryResult > 0) {
                     em.getTransaction().commit();
-                    return new DataTransfer(StatusOperation.EXECUTED, "");
+                    return new DataTransfer(StatusOperation.EXECUTED, IwaMessages.EXECUTED.value());
                 } else {
                     Thread.sleep(TIME_TO_EXECUTE);
                     timesExecuted++;
                 }
             }
-            return new DataTransfer(StatusOperation.ABORTED, "");
+            return new DataTransfer(StatusOperation.ABORTED, IwaMessages.ABORTED.value());
         }catch (Exception e){
-            return new DataTransfer(StatusOperation.ERROR, "");
+            return new DataTransfer(StatusOperation.ERROR, IwaMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
                 em.clear();
