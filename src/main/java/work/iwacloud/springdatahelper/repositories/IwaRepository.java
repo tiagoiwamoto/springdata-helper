@@ -14,12 +14,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
-import work.iwacloud.springdatahelper.exception.IwaException;
-import work.iwacloud.springdatahelper.helper.TableHelper;
+import work.iwacloud.springdatahelper.exceptions.IwaException;
+import work.iwacloud.springdatahelper.helpers.TableHelper;
 import work.iwacloud.springdatahelper.objects.DataTransfer;
-import work.iwacloud.springdatahelper.objects.IwaMessages;
+import work.iwacloud.springdatahelper.enums.IwaMessages;
 import work.iwacloud.springdatahelper.objects.IwaTable;
-import work.iwacloud.springdatahelper.objects.StatusOperation;
+import work.iwacloud.springdatahelper.enums.StatusOperation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

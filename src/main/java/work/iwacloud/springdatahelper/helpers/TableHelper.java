@@ -1,4 +1,4 @@
-package work.iwacloud.springdatahelper.helper;
+package work.iwacloud.springdatahelper.helpers;
 
 /*
  * Tiago Henrique Iwamoto
@@ -8,7 +8,7 @@ package work.iwacloud.springdatahelper.helper;
  * 21/12/2015 - 23:16
  */
 
-import work.iwacloud.springdatahelper.exception.IwaException;
+import work.iwacloud.springdatahelper.exceptions.IwaException;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;

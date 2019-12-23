@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import work.iwacloud.springdatahelper.objects.DataTransfer;
 import work.iwacloud.springdatahelper.objects.IwaTable;
-import work.iwacloud.springdatahelper.objects.StatusOperation;
+import work.iwacloud.springdatahelper.enums.StatusOperation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +34,7 @@ public class IwaRepositoryTest {
 
     @Test
     public void select() {
-        List<Map> result = (List<Map>) iwaRepository.select("select * from TB_USERS", true);
+        List<Map> result = (List<Map>) iwaRepository.select("select u.* from TB_USERS u", true);
         Assert.assertEquals(10, result.size());
         result = (List<Map>) iwaRepository.select("call select *, UPDATED_AT from TB_USERS", true);
         Assert.assertEquals(0, result.size());
@@ -67,5 +67,8 @@ public class IwaRepositoryTest {
 
     @Test
     public void rawQuery() {
+        String query = "delete from TB_USERS where ID = 1";
+        DataTransfer<StatusOperation, Object> resp = iwaRepository.rawQuery(query);
+        Assert.assertEquals(StatusOperation.EXECUTED, resp.getResult());
     }
 }

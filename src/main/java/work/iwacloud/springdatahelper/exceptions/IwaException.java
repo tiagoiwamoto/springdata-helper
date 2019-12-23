@@ -1,4 +1,4 @@
-package work.iwacloud.springdatahelper.exception;
+package work.iwacloud.springdatahelper.exceptions;
 
 /*
  * Tiago Henrique Iwamoto

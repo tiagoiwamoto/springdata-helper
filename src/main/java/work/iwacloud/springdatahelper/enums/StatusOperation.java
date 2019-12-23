@@ -1,4 +1,4 @@
-package work.iwacloud.springdatahelper.objects;
+package work.iwacloud.springdatahelper.enums;
 
 /*
  * Tiago Henrique Iwamoto

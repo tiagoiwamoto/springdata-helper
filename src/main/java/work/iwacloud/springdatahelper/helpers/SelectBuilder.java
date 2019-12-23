@@ -1,4 +1,4 @@
-package work.iwacloud.springdatahelper.helper;
+package work.iwacloud.springdatahelper.helpers;
 
 /*
  * Tiago Henrique Iwamoto
