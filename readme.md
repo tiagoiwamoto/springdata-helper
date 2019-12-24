@@ -7,8 +7,8 @@
     but the result will be:
         [
             {1,
-            "name of user"
-            "2019-12-22"
+            "name of user",
+            "2019-12-22",
             true},
             ...
         ]
@@ -19,8 +19,8 @@
         [
             {
                 id: 1,
-                name: "name of user"
-                createdAt: "2019-12-22"
+                name: "name of user",
+                createdAt: "2019-12-22",
                 isActive: true
             },
             ...
