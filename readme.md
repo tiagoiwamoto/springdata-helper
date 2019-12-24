@@ -1,6 +1,5 @@
 # Spring-data Helper
-    What this helper is ?
-        a service to ...
+
     Problem: You need to make a custom query using Springdata ok?
     you will do: @Query(value = "your query here", nativeQuery = true)
                  List<Object> myCustomQuery();
