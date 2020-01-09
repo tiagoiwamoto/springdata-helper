@@ -1,6 +1,5 @@
 # Spring-data Helper
-    What this helper is ?
-        a service to ...
+
     Problem: You need to make a custom query using Springdata ok?
     you will do: @Query(value = "your query here", nativeQuery = true)
                  List<Object> myCustomQuery();
@@ -8,8 +7,8 @@
     but the result will be:
         [
             {1,
-            "name of user"
-            "2019-12-22"
+            "name of user",
+            "2019-12-22",
             true},
             ...
         ]
@@ -20,8 +19,8 @@
         [
             {
                 id: 1,
-                name: "name of user"
-                createdAt: "2019-12-22"
+                name: "name of user",
+                createdAt: "2019-12-22",
                 isActive: true
             },
             ...
