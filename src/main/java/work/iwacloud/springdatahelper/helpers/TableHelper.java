@@ -27,9 +27,8 @@ public class TableHelper {
     /**
      * Convert a column from database to a java pattern
      * example: 'TB_USERS_COLUMN' to 'tbUsersColumn'
-     * @param column
-     * @return
-     * @throws Exception
+     * @param parameter to parse to java pattern
+     * @return a string with a java pattern
      */
     public String convertColumnToJava(String column) throws IwaException {
 
@@ -70,8 +69,8 @@ public class TableHelper {
      * you only pass the a,b,c as string
      * and this return ?, ?, ?
      * to use with prepared statement.
-     * @param sql
-     * @return
+     * @param sql to get the number of params
+     * @return a string with number of ?
      */
     public String getNumberOfColumns(String sql) throws IwaException {
         if(sql.isEmpty()){
@@ -92,10 +91,8 @@ public class TableHelper {
     /**
      * This method receive a resultset and convert to a list of map.
      * you can serialize to a pojo or just return the list.
-     * @param rs
-     * @return
-     * @throws IwaException
-     * @throws SQLException
+     * @param to serialize into a map
+     * @return a linkedlist of map
      */
     public LinkedList<Map> serializeResultSet(ResultSet rs) throws IwaException, SQLException {
 

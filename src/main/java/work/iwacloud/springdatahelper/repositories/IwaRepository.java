@@ -46,8 +46,8 @@ public class IwaRepository {
     /**
      * Method configured to return a json array,
      * in this context i have to set a Object.
-     * @param select
-     * @return
+     * @param select to execute and convert to a linkedlist
+     * @return a linkedlist of map
      */
     public Object select(String select, Boolean asList){
 
@@ -89,9 +89,9 @@ public class IwaRepository {
     /**
      * Persist on table of database
      * using spring-data entitymanager
-     * @param customQueries
-     * @param table
-     * @return
+     * @param customQueries to execute a save command
+     * @param table name to persist
+     * @return a dto with result
      */
     public DataTransfer<StatusOperation, Object> save(LinkedList<IwaTable> customQueries, String table){
         String columns = "";
@@ -143,10 +143,11 @@ public class IwaRepository {
     /**
      * Update a line on table of database
      * using spring-data entitymanager
-     * @param tableColumns
-     * @param table
-     * @param where
      * @return
+     * @param customQueries to execute a save command
+     * @param table name to persist
+     * @param where condition to update a row
+     * @return a dto with result
      */
     public DataTransfer<StatusOperation, Object> update(LinkedList<IwaTable> tableColumns, String table, IwaTable where){
         String columns = "";
@@ -199,8 +200,8 @@ public class IwaRepository {
     /**
      * execute a pure sql command
      * using spring-data entitymanager
-     * @param command
-     * @return
+     * @param command to exeute on database
+     * @return a dto with result
      */
     public DataTransfer<StatusOperation, Object> rawQuery(String command){
         EntityManager em = entityManagerFactory.createEntityManager();
