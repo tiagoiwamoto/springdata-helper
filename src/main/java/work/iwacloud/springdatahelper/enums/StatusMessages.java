@@ -8,7 +8,7 @@ package work.iwacloud.springdatahelper.enums;
  * 22/12/2019 - 11:26
  */
 
-public enum IwaMessages {
+public enum StatusMessages {
 
     PENDING(""),
     EXECUTING(""),
@@ -19,7 +19,7 @@ public enum IwaMessages {
 
     private String message;
 
-    IwaMessages(String message) {
+    StatusMessages(String message) {
         this.message = message;
     }
 

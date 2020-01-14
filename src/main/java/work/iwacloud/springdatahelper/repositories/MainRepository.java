@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 import work.iwacloud.springdatahelper.exceptions.IwaException;
 import work.iwacloud.springdatahelper.helpers.TableHelper;
 import work.iwacloud.springdatahelper.objects.DataTransfer;
-import work.iwacloud.springdatahelper.enums.IwaMessages;
-import work.iwacloud.springdatahelper.objects.IwaTable;
+import work.iwacloud.springdatahelper.enums.StatusMessages;
+import work.iwacloud.springdatahelper.objects.DbColumn;
 import work.iwacloud.springdatahelper.enums.StatusOperation;
 
 import javax.persistence.EntityManager;
@@ -31,14 +31,14 @@ import java.util.LinkedList;
 
 @SuppressWarnings("all")
 @Component
-public class IwaRepository {
+public class MainRepository {
 
     private static final Long TIME_TO_EXECUTE = 1000L;
     private EntityManagerFactory entityManagerFactory;
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public IwaRepository(JdbcTemplate jdbcTemplate, EntityManagerFactory entityManagerFactory) {
+    public MainRepository(JdbcTemplate jdbcTemplate, EntityManagerFactory entityManagerFactory) {
         this.jdbcTemplate = jdbcTemplate;
         this.entityManagerFactory = entityManagerFactory;
     }
@@ -93,12 +93,12 @@ public class IwaRepository {
      * @param table name to persist
      * @return a dto with result
      */
-    public DataTransfer<StatusOperation, Object> save(LinkedList<IwaTable> customQueries, String table){
+    public DataTransfer<StatusOperation, Object> save(LinkedList<DbColumn> customQueries, String table){
         String columns = "";
         int position = 1;
         int timesExecuted = 0;
 
-        for(IwaTable value : customQueries){
+        for(DbColumn value : customQueries){
             if(position == customQueries.size()){
                 columns += value.getColumn();
             }else{
@@ -113,7 +113,7 @@ public class IwaRepository {
             String sqlCommand = String.format("INSERT INTO %s (%s) VALUES (%s)", table, columns, new TableHelper().getNumberOfColumns(columns));
             Query query = em.createNativeQuery(sqlCommand);
             position = 1;
-            for (IwaTable value : customQueries) {
+            for (DbColumn value : customQueries) {
                 query.setParameter(position++, value.getValue());
             }
             em.getTransaction().begin();
@@ -122,16 +122,16 @@ public class IwaRepository {
                 Integer queryResult = query.executeUpdate();
                 if(queryResult > 0){
                     em.getTransaction().commit();
-                    return new DataTransfer<>(StatusOperation.EXECUTED, IwaMessages.EXECUTED.value());
+                    return new DataTransfer<>(StatusOperation.EXECUTED, StatusMessages.EXECUTED.value());
                 }else{
                     Thread.sleep(TIME_TO_EXECUTE);
                     timesExecuted++;
                 }
             }
-            return new DataTransfer(StatusOperation.ABORTED, IwaMessages.ABORTED.value());
+            return new DataTransfer(StatusOperation.ABORTED, StatusMessages.ABORTED.value());
 
         }catch (Exception e){
-            return new DataTransfer(StatusOperation.ERROR, IwaMessages.ERROR.value());
+            return new DataTransfer(StatusOperation.ERROR, StatusMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
                 em.clear();
@@ -149,12 +149,12 @@ public class IwaRepository {
      * @param where condition to update a row
      * @return a dto with result
      */
-    public DataTransfer<StatusOperation, Object> update(LinkedList<IwaTable> tableColumns, String table, IwaTable where){
+    public DataTransfer<StatusOperation, Object> update(LinkedList<DbColumn> tableColumns, String table, DbColumn where){
         String columns = "";
         int position = 1;
         int timesExecuted = 0;
 
-        for(IwaTable value : tableColumns){
+        for(DbColumn value : tableColumns){
             if(position == tableColumns.size()){
                 columns += value.getColumn() + " = ?";
             }else{
@@ -171,7 +171,7 @@ public class IwaRepository {
             String sqlCommand = String.format("UPDATE %s SET %s WHERE %s", table, columns, whereToUpdate);
             Query query = em.createNativeQuery(sqlCommand);
             position = 1;
-            for (IwaTable value : tableColumns) {
+            for (DbColumn value : tableColumns) {
                 query.setParameter(position++, value.getValue());
             }
             em.getTransaction().begin();
@@ -179,16 +179,16 @@ public class IwaRepository {
                 Integer queryResult = query.executeUpdate();
                 if(queryResult > 0){
                     em.getTransaction().commit();
-                    return new DataTransfer<>(StatusOperation.EXECUTED, IwaMessages.EXECUTED.value());
+                    return new DataTransfer<>(StatusOperation.EXECUTED, StatusMessages.EXECUTED.value());
                 }else{
                     Thread.sleep(TIME_TO_EXECUTE);
                     timesExecuted++;
                 }
             }
 
-            return new DataTransfer(StatusOperation.ABORTED, IwaMessages.ABORTED.value());
+            return new DataTransfer(StatusOperation.ABORTED, StatusMessages.ABORTED.value());
         }catch (Exception e){
-            return new DataTransfer(StatusOperation.ERROR, IwaMessages.ERROR.value());
+            return new DataTransfer(StatusOperation.ERROR, StatusMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
                 em.clear();
@@ -216,15 +216,15 @@ public class IwaRepository {
                 Integer queryResult = query.executeUpdate();
                 if (queryResult > 0) {
                     em.getTransaction().commit();
-                    return new DataTransfer(StatusOperation.EXECUTED, IwaMessages.EXECUTED.value());
+                    return new DataTransfer(StatusOperation.EXECUTED, StatusMessages.EXECUTED.value());
                 } else {
                     Thread.sleep(TIME_TO_EXECUTE);
                     timesExecuted++;
                 }
             }
-            return new DataTransfer(StatusOperation.ABORTED, IwaMessages.ABORTED.value());
+            return new DataTransfer(StatusOperation.ABORTED, StatusMessages.ABORTED.value());
         }catch (Exception e){
-            return new DataTransfer(StatusOperation.ERROR, IwaMessages.ERROR.value());
+            return new DataTransfer(StatusOperation.ERROR, StatusMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
                 em.clear();

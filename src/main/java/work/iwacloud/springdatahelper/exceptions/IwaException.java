@@ -31,8 +31,8 @@ public class IwaException extends Exception {
     }
 
     protected IwaException(String message, Throwable cause,
-                        boolean enableSuppression,
-                        boolean writableStackTrace) {
+                           boolean enableSuppression,
+                           boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

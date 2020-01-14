@@ -14,7 +14,7 @@ import java.util.Objects;
  * This is a model with a column name and a value to persist in database
  */
 @SuppressWarnings("all")
-public class IwaTable {
+public class DbColumn {
 
     //region ATRIBUTES
     private String column;
@@ -24,7 +24,7 @@ public class IwaTable {
 
     //region CONSTRUCTORS
 
-    public IwaTable(String column, Object value) {
+    public DbColumn(String column, Object value) {
         this.column = column;
         this.value = value;
     }
@@ -32,12 +32,12 @@ public class IwaTable {
     //endregion
 
     //region SUPPORT
-    public IwaTable withColumn(String column){
+    public DbColumn withColumn(String column){
         this.column = column;
         return this;
     }
 
-    public IwaTable withValue(Object value){
+    public DbColumn withValue(Object value){
         this.value = value;
         return this;
     }
@@ -61,9 +61,9 @@ public class IwaTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IwaTable iwaTable = (IwaTable) o;
-        return Objects.equals(column, iwaTable.column) &&
-                Objects.equals(value, iwaTable.value);
+        DbColumn dbColumn = (DbColumn) o;
+        return Objects.equals(column, dbColumn.column) &&
+                Objects.equals(value, dbColumn.value);
     }
 
     @Override
