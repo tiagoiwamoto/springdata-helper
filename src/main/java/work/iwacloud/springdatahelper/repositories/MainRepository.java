@@ -47,6 +47,7 @@ public class MainRepository {
      * Method configured to return a json array,
      * in this context i have to set a Object.
      * @param select to execute and convert to a linkedlist
+     * @param asList a boolean to choose if you want a list or json array
      * @return a linkedlist of map
      */
     public Object select(String select, Boolean asList){
@@ -143,8 +144,7 @@ public class MainRepository {
     /**
      * Update a line on table of database
      * using spring-data entitymanager
-     * @return
-     * @param customQueries to execute a save command
+     * @param tableColumns to execute a save command
      * @param table name to persist
      * @param where condition to update a row
      * @return a dto with result

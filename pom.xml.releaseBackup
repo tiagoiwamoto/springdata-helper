@@ -9,7 +9,7 @@
     </parent>
     <groupId>work.iwacloud</groupId>
     <artifactId>springdata-helper</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>springdata-helper</name>
     <description>A helper for spring-data</description>
 
