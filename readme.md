@@ -41,6 +41,9 @@
             <artifactId>springdata-helper</artifactId>
             <version>1.0.3</version>
         </dependency>
+        
+        In your Application.java add scanBasePackages
+        @SpringBootApplication(scanBasePackages = {"your.package", "work.iwacloud"})
 
     
 # Main developers
