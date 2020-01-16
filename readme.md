@@ -36,11 +36,11 @@
     mvn -DskipTests clean install
     
 # Add in your project
-    <dependency>
-        <groupId>work.iwacloud</groupId>
-        <artifactId>springdata-helper</artifactId>
-        <version>1.0</version>
-    </dependency>
+        <dependency>
+            <groupId>work.iwacloud</groupId>
+            <artifactId>springdata-helper</artifactId>
+            <version>1.0.3</version>
+        </dependency>
 
     
 # Main developers
