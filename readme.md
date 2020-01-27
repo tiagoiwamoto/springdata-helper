@@ -1,6 +1,6 @@
 # Spring-data Helper
 
-<a href="https://www.buymeacoffee.com/pPobB4i" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-yellow_img.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/pPobB4i" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
     Problem: You need to make a custom query using Springdata ok?
     you will do: @Query(value = "your query here", nativeQuery = true)
