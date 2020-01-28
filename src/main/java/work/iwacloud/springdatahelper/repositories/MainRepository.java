@@ -8,7 +8,10 @@ package work.iwacloud.springdatahelper.repositories;
  * 22/12/2019 - 00:31
  */
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +34,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("all")
 @Component
-public class MainRepository {
+public class MainRepository<T> {
 
     private static final Long TIME_TO_EXECUTE = 1000L;
     private EntityManagerFactory entityManagerFactory;
@@ -45,6 +50,27 @@ public class MainRepository {
     public MainRepository(JdbcTemplate jdbcTemplate, EntityManagerFactory entityManagerFactory) {
         this.jdbcTemplate = jdbcTemplate;
         this.entityManagerFactory = entityManagerFactory;
+    }
+
+    /**
+     * Method configured to return a object array,
+     * in this context i have to set a Object.
+     * @param select to execute and convert to a linkedlist
+     * @exception when a invalid select query
+     * @return a linkedlist of map
+     */
+    public List<T> select(String select) throws Exception {
+        try {
+            Gson gson = new Gson();
+            LinkedList<Map> maps = (LinkedList<Map>) this.select(select, false);
+            String json = gson.toJson(maps);
+            List<T> dados = gson.fromJson(json, new TypeToken<List<T>>() {
+            }.getType());
+            return dados;
+        }catch (Exception e){
+            logger.error(String.format("Error to process query: %s", e.getMessage()), e);
+            throw new IwaException(String.format("Error to process query: %s", e.getMessage()), e);
+        }
     }
 
     /**
