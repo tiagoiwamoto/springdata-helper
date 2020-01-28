@@ -9,8 +9,11 @@ package work.iwacloud.springdatahelper.repositories;
  */
 
 import org.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
@@ -36,6 +39,7 @@ public class MainRepository {
     private static final Long TIME_TO_EXECUTE = 1000L;
     private EntityManagerFactory entityManagerFactory;
     private JdbcTemplate jdbcTemplate;
+    Logger logger = LoggerFactory.getLogger(MainRepository.class);
 
     @Autowired
     public MainRepository(JdbcTemplate jdbcTemplate, EntityManagerFactory entityManagerFactory) {
@@ -48,11 +52,12 @@ public class MainRepository {
      * in this context i have to set a Object.
      * @param select to execute and convert to a linkedlist
      * @param asList a boolean to choose if you want a list or json array
+     * @exception when a invalid select query
      * @return a linkedlist of map
      */
-    public Object select(String select, Boolean asList){
+    public Object select(String select, Boolean asList) throws Exception {
 
-        if(select.startsWith("select") || select.startsWith("SELECT")) {
+        if(select.toLowerCase().startsWith("select ")) {
             try {
                 return jdbcTemplate.query(select, new ResultSetExtractor<Object>() {
 
@@ -71,6 +76,10 @@ public class MainRepository {
 
                 });
             }catch (Exception e){
+                logger.error(String.format("Error to process query: %s", e.getMessage()), e);
+                if(e instanceof BadSqlGrammarException)
+                    throw new IwaException(String.format("Error to process query: %s", e.getMessage()), e);
+
                 if (asList) {
                     return new ArrayList<>();
                 } else {
@@ -78,13 +87,9 @@ public class MainRepository {
                 }
             }
         }else{
-            if (asList) {
-                return new ArrayList<>();
-            } else {
-                return new JSONArray();
-            }
+            logger.debug(String.format("It is not a valid select query: %s", select));
+            throw new IwaException(String.format("It is not a valid select query: %s", select));
         }
-
     }
 
     /**
@@ -129,9 +134,11 @@ public class MainRepository {
                     timesExecuted++;
                 }
             }
+            logger.warn("Timeout reached, aborting query");
             return new DataTransfer(StatusOperation.ABORTED, StatusMessages.ABORTED.value());
 
         }catch (Exception e){
+            logger.error(String.format("Error to process query: %s", e.getMessage()), e);
             return new DataTransfer(StatusOperation.ERROR, StatusMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
@@ -185,9 +192,10 @@ public class MainRepository {
                     timesExecuted++;
                 }
             }
-
+            logger.warn("Timeout reached, aborting query");
             return new DataTransfer(StatusOperation.ABORTED, StatusMessages.ABORTED.value());
         }catch (Exception e){
+            logger.error(String.format("Error to process query: %s", e.getMessage()), e);
             return new DataTransfer(StatusOperation.ERROR, StatusMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
@@ -222,8 +230,10 @@ public class MainRepository {
                     timesExecuted++;
                 }
             }
+            logger.warn("Timeout reached, aborting query");
             return new DataTransfer(StatusOperation.ABORTED, StatusMessages.ABORTED.value());
         }catch (Exception e){
+            logger.error(String.format("Error to process query: %s", e.getMessage()), e);
             return new DataTransfer(StatusOperation.ERROR, StatusMessages.ERROR.value());
         }finally {
             if(em.isOpen()){
