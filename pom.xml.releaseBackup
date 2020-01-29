@@ -9,7 +9,7 @@
     </parent>
     <groupId>work.iwacloud</groupId>
     <artifactId>springdata-helper</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <name>springdata-helper</name>
     <description>A helper for spring-data</description>
 
@@ -17,7 +17,7 @@
         <connection>scm:git:git://github.com/tiagoiwamoto/springdata-helper.git</connection>
         <developerConnection>scm:git:git@github.com:tiagoiwamoto/springdata-helper.git</developerConnection>
         <url>https://github.com/tiagoiwamoto/springdata-helper.git</url>
-        <tag>HEAD</tag>
+        <tag>springdata-helper-1.0.4</tag>
     </scm>
 
     <properties>
