@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import work.iwacloud.springdatahelper.objects.DataTransfer;
 import work.iwacloud.springdatahelper.objects.DbColumn;
 import work.iwacloud.springdatahelper.enums.StatusOperation;
+import work.iwacloud.springdatahelper.objects.DtoTest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,16 +33,17 @@ public class MainRepositoryTest {
     @Autowired
     private MainRepository mainRepository;
 
+    @Autowired
+    private MainRepository<DtoTest> mainRepositorytest;
+
     @Test
     public void select() {
         try {
             List<Map> result = (List<Map>) mainRepository.select("select u.* from TB_USERS u", true);
             Assert.assertEquals(10, result.size());
-            result = (List<Map>) mainRepository.select("call select *, UPDATED_AT from TB_USERS", true);
-            Assert.assertEquals(0, result.size());
-            result = (List<Map>) mainRepository.select("call select * from TB_USERS", true);
-            Assert.assertEquals(0, result.size());
-        }catch (Exception ignored){
+            List<DtoTest> dados = mainRepositorytest.select("select u.* from TB_USERS u");
+            Assert.assertEquals(10, dados.size());
+        }catch (Exception e){
         }
     }
 
