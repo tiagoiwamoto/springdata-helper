@@ -56,7 +56,7 @@ public class MainRepository<T> {
      * Method configured to return a object array,
      * in this context i have to set a Object.
      * @param select to execute and convert to a linkedlist
-     * @exception when a invalid select query
+     * @throws Exception when a invalid select query
      * @return a linkedlist of map
      */
     public List<T> select(String select) throws Exception {
