@@ -39,7 +39,7 @@ import java.util.Map;
 
 @SuppressWarnings("all")
 @Component
-public class MainRepository<T> {
+public class MainRepository {
 
     private static final Long TIME_TO_EXECUTE = 1000L;
     private EntityManagerFactory entityManagerFactory;
@@ -59,7 +59,7 @@ public class MainRepository<T> {
      * @throws Exception when a invalid select query
      * @return a linkedlist of map
      */
-    public List<T> select(String select) throws Exception {
+    public <T> List<T> select(String select) throws Exception {
         try {
             Gson gson = new Gson();
             LinkedList<Map> maps = (LinkedList<Map>) this.select(select, false);
