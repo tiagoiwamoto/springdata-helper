@@ -12,7 +12,6 @@ import work.iwacloud.springdatahelper.exceptions.IwaException;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Date;
