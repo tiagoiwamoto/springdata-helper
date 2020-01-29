@@ -78,7 +78,7 @@ public class MainRepository<T> {
      * in this context i have to set a Object.
      * @param select to execute and convert to a linkedlist
      * @param asList a boolean to choose if you want a list or json array
-     * @exception when a invalid select query
+     * @throws Exception when a invalid select query
      * @return a linkedlist of map
      */
     public Object select(String select, Boolean asList) throws Exception {
