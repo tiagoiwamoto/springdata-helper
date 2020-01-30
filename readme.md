@@ -50,6 +50,7 @@
     
 # Main developers
     Tiago Henrique Iwamoto - https://www.linkedin.com/in/tiago-iwamoto/
+    Bruno Raphael Dutra - https://br.linkedin.com/in/bruno-dutra-81589667
     
 # Any help ?
     Members contacts
