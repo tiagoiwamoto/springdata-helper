@@ -33,15 +33,12 @@ public class MainRepositoryTest {
     @Autowired
     private MainRepository mainRepository;
 
-    @Autowired
-    private MainRepository<DtoTest> mainRepositorytest;
-
     @Test
     public void select() {
         try {
             List<Map> result = (List<Map>) mainRepository.select("select u.* from TB_USERS u", true);
             Assert.assertEquals(10, result.size());
-            List<DtoTest> dados = mainRepositorytest.select("select u.* from TB_USERS u");
+            List<DtoTest> dados = mainRepository.select("select u.* from TB_USERS u");
             Assert.assertEquals(10, dados.size());
         }catch (Exception e){
         }
