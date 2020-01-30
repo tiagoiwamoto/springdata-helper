@@ -74,7 +74,7 @@ public class MainRepository {
     }
 
     /**
-     * Method configured to return a json array,
+     * Method configured to return a json array or a list of map,
      * in this context i have to set a Object.
      * @param select to execute and convert to a linkedlist
      * @param asList a boolean to choose if you want a list or json array
