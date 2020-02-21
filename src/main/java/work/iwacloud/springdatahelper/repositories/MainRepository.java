@@ -30,6 +30,7 @@ import work.iwacloud.springdatahelper.enums.StatusOperation;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,13 +60,18 @@ public class MainRepository {
      * @throws Exception when a invalid select query
      * @return a linkedlist of map
      */
-    public <T> List<T> select(String select) throws Exception {
+    public List select(String select, Type typeOfT) throws Exception {
         try {
             Gson gson = new Gson();
             LinkedList<Map> maps = (LinkedList<Map>) this.select(select, false);
-            String json = gson.toJson(maps);
-            List<T> dados = gson.fromJson(json, new TypeToken<List<T>>() {
-            }.getType());
+//            String json = gson.toJson(maps);
+            List dados = new ArrayList<>();
+            for (Map map: maps) {
+                String json = gson.toJson(map);
+                Object dado = gson.fromJson(json, typeOfT);
+                dados.add(dado);
+            }
+//            List dados = (List)gson.fromJson(json, typeOfT);
             return dados;
         }catch (Exception e){
             logger.error(String.format("Error to process query: %s", e.getMessage()), e);

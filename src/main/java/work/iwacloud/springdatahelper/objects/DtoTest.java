@@ -7,11 +7,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DtoTest {
-    private int Id;
-    private String Name;
-    private Date Birthday;
-    private String Sex;
-    private Boolean IsActive;
-    private Float Salary;
-    private Date CreatedAt;
+    private int id;
+    private String name;
+    private String sex;
+    private Boolean isActive;
+    private Float salary;
 }

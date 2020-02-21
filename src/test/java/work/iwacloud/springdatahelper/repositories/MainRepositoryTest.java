@@ -38,7 +38,7 @@ public class MainRepositoryTest {
         try {
             List<Map> result = (List<Map>) mainRepository.select("select u.* from TB_USERS u", true);
             Assert.assertEquals(10, result.size());
-            List<DtoTest> dados = mainRepository.select("select u.* from TB_USERS u");
+            List<DtoTest> dados = mainRepository.select("select u.* from TB_USERS u", DtoTest.class);
             Assert.assertEquals(10, dados.size());
         }catch (Exception e){
         }
